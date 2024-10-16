@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MovieClub.Entities
 {
-    public class Movie
+    public class Movie : IIdEntity
     {
         public Movie(string title, string genre)
         {

@@ -8,6 +8,17 @@ namespace MovieClub.Endpoint.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-        
+        Repository<Movie> repo;
+
+        public MovieController(Repository<Movie> repo)
+        {
+            this.repo = repo;
+        }
+
+        [HttpPost]
+        public void AddMovie(Movie movie)
+        {
+            repo.Create(movie);
+        }
     }
 }

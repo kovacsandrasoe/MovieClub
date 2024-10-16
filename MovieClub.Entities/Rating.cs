@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Entities
 {
-    public class Rating
+    public class Rating : IIdEntity
     {
         public Rating(string movieId, string text, int rate)
         {
