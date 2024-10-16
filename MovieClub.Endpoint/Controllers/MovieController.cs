@@ -4,6 +4,14 @@ using MovieClub.Entities;
 
 namespace MovieClub.Endpoint.Controllers
 {
+    public class MovieCreateDto
+    {
+        public string Title { get; set; }
+
+        public string Genre { get; set; }
+    }
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
@@ -16,9 +24,10 @@ namespace MovieClub.Endpoint.Controllers
         }
 
         [HttpPost]
-        public void AddMovie(Movie movie)
+        public void AddMovie(MovieCreateDto dto)
         {
-            repo.Create(movie);
+            var m = new Movie(dto.Title, dto.Genre);
+            repo.Create(m);
         }
     }
 }

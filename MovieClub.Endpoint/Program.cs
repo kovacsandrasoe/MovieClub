@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MovieClub.Data;
+using MovieClub.Entities;
 
 namespace MovieClub.Endpoint
 {
@@ -10,6 +11,8 @@ namespace MovieClub.Endpoint
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddTransient(typeof(Repository<>));
 
             builder.Services.AddDbContext<MovieClubContext>(options =>
             {
