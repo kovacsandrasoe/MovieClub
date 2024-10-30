@@ -27,7 +27,7 @@ namespace MovieClub.Logic.Logic
             }
             else
             {
-                //todo throw exception
+                throw new ArgumentException("Ilyen címmel már létezik film!");
             }
         }
 

@@ -18,9 +18,19 @@ namespace MovieClub.Endpoint.Controllers
         }
 
         [HttpPost]
-        public void AddMovie(MovieCreateUpdateDto dto)
+        public IActionResult AddMovie(MovieCreateUpdateDto dto)
         {
-            logic.AddMovie(dto);
+            try
+            {
+                logic.AddMovie(dto);
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+            return Ok();
+            
         }
 
         [HttpGet]
