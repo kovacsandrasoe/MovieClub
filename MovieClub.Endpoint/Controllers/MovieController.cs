@@ -24,7 +24,7 @@ namespace MovieClub.Endpoint.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Movie> GetAllMovies()
+        public IEnumerable<MovieShortViewDto> GetAllMovies()
         {
             return logic.GetAllMovies();
         }

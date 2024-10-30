@@ -27,9 +27,16 @@ namespace MovieClub.Logic
             }
         }
 
-        public IEnumerable<Movie> GetAllMovies()
+        public IEnumerable<MovieShortViewDto> GetAllMovies()
         {
-            return repo.GetAll();
+            return repo.GetAll().Select(x => 
+                new MovieShortViewDto()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    Genre = x.Genre
+                }
+            );
         }
     }
 }
