@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MovieClub.Entities
+namespace MovieClub.Entities.Helpers
 {
     public interface IIdEntity
     {
