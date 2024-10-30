@@ -16,7 +16,15 @@ namespace MovieClub.Logic
         public void AddMovie(MovieCreateDto dto)
         {
             Movie m = new Movie(dto.Title, dto.Genre);
-            repo.Create(m);
+            // csak akkor mentsük el, hogyha nincs ilyen című
+            if (repo.GetAll().FirstOrDefault(x => x.Title == m.Title) == null)
+            {
+                repo.Create(m);
+            }
+            else
+            {
+                //todo throw exception
+            }
         }
     }
 }

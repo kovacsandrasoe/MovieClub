@@ -1,33 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieClub.Data;
 using MovieClub.Entities;
+using MovieClub.Entities.Dtos.Movie;
+using MovieClub.Logic;
 
 namespace MovieClub.Endpoint.Controllers
 {
-    public class MovieCreateDto
-    {
-        public string Title { get; set; }
-
-        public string Genre { get; set; }
-    }
-
-
     [Route("api/[controller]")]
     [ApiController]
     public class MovieController : ControllerBase
     {
-        Repository<Movie> repo;
+        MovieLogic logic;
 
-        public MovieController(Repository<Movie> repo)
+        public MovieController(MovieLogic logic)
         {
-            this.repo = repo;
+            this.logic = logic;
         }
 
         [HttpPost]
         public void AddMovie(MovieCreateDto dto)
         {
-            var m = new Movie(dto.Title, dto.Genre);
-            repo.Create(m);
+            logic.AddMovie(dto);
         }
     }
 }

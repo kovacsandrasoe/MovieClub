@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MovieClub.Data\MovieClub.Data.csproj" />
     <ProjectReference Include="..\MovieClub.Entities\MovieClub.Entities.csproj" />
+    <ProjectReference Include="..\MovieClub.Logic\MovieClub.Logic.csproj" />
   </ItemGroup>
 
 </Project>
