@@ -18,7 +18,13 @@ namespace MovieClub.Logic.Helpers
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Movie, MovieShortViewDto>();
+                cfg.CreateMap<Movie, MovieShortViewDto>()
+                .AfterMap((src, dest) =>
+                {
+                    dest.AverageRating = src.Ratings?.Count > 0 ? src.Ratings.Average(r => r.Rate) : 0;
+                });
+
+
                 cfg.CreateMap<Movie, MovieViewDto>();
                 cfg.CreateMap<MovieCreateUpdateDto, Movie>();
                 cfg.CreateMap<RatingCreateDto, Rating>();

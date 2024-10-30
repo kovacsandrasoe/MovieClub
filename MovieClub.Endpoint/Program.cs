@@ -21,7 +21,7 @@ namespace MovieClub.Endpoint
 
             builder.Services.AddDbContext<MovieClubContext>(options =>
             {
-                options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MovieClubDb;Trusted_Connection=True;TrustServerCertificate=True");
+                options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MovieClubDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=True");
                 options.UseLazyLoadingProxies();
             });
 

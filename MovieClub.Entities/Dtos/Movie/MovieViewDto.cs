@@ -19,5 +19,7 @@ namespace MovieClub.Entities.Dtos.Movie
         //extra property
         public int RatingCount => Ratings?.Count() ?? 0;
 
+        public double AverageRating => Ratings?.Count() > 0 ? Ratings.Average(r => r.Rate) : 0;
+
     }
 }

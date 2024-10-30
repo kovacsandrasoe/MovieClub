@@ -13,5 +13,7 @@ namespace MovieClub.Entities.Dtos.Movie
         public string Title { get; set; } = "";
 
         public string Genre { get; set; } = "";
+
+        public double AverageRating { get; set; } = 0;
     }
 }
