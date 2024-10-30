@@ -13,7 +13,7 @@ namespace MovieClub.Entities.Dtos.Movie
         public string Id { get; set; } = "";
         public string Title { get; set; } = "";
         public string Genre { get; set; } = "";
-        public IEnumerable<Rating>? Ratings { get; set; }
+        public IEnumerable<MovieClub.Entities.Rating>? Ratings { get; set; }
 
         //extra property
         public int RatingCount => Ratings?.Count() ?? 0;

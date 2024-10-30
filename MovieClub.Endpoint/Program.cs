@@ -17,10 +17,12 @@ namespace MovieClub.Endpoint
             builder.Services.AddTransient(typeof(Repository<>));
             builder.Services.AddTransient<DtoProvider>();
             builder.Services.AddTransient<MovieLogic>();
+            builder.Services.AddTransient<RatingLogic>();
 
             builder.Services.AddDbContext<MovieClubContext>(options =>
             {
                 options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MovieClubDb;Trusted_Connection=True;TrustServerCertificate=True");
+                options.UseLazyLoadingProxies();
             });
 
             builder.Services.AddControllers();
