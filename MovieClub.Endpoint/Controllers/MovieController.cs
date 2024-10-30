@@ -40,5 +40,11 @@ namespace MovieClub.Endpoint.Controllers
         {
             logic.UpdateMovie(id, dto);
         }
+
+        [HttpGet("{id}")]
+        public MovieViewDto GetMovie(string id)
+        {
+            return logic.GetMovie(id);
+        }
     }
 }

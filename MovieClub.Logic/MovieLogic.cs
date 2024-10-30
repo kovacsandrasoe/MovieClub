@@ -51,5 +51,17 @@ namespace MovieClub.Logic
             old.Genre = dto.Genre;
             repo.Update(old);
         }
+
+        public MovieViewDto GetMovie(string id)
+        {
+            var model = repo.FindById(id);
+            return new MovieViewDto()
+            {
+                Id = model.Id,
+                Title = model.Title,
+                Genre = model.Genre,
+                Ratings = model.Ratings
+            };
+        }
     }
 }
