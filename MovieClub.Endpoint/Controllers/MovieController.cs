@@ -2,6 +2,7 @@
 using MovieClub.Data;
 using MovieClub.Entities;
 using MovieClub.Entities.Dtos.Movie;
+using MovieClub.Entities.Helpers;
 using MovieClub.Logic.Logic;
 
 namespace MovieClub.Endpoint.Controllers
@@ -26,7 +27,7 @@ namespace MovieClub.Endpoint.Controllers
             }
             catch(Exception e)
             {
-                return BadRequest(e.Message);
+                return BadRequest(new ErrorModel(e.Message));
             }
 
             return Ok();
