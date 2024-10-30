@@ -22,5 +22,11 @@ namespace MovieClub.Endpoint.Controllers
         {
             logic.AddMovie(dto);
         }
+
+        [HttpGet]
+        public IEnumerable<Movie> GetAllMovies()
+        {
+            return logic.GetAllMovies();
+        }
     }
 }

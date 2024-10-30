@@ -26,5 +26,10 @@ namespace MovieClub.Logic
                 //todo throw exception
             }
         }
+
+        public IEnumerable<Movie> GetAllMovies()
+        {
+            return repo.GetAll();
+        }
     }
 }
