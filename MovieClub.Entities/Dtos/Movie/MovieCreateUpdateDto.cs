@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Entities.Dtos.Movie
 {
-    public class MovieCreateDto
+    public class MovieCreateUpdateDto
     {
         public required string Title { get; set; } = "";
 

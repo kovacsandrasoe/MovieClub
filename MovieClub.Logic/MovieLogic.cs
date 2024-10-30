@@ -13,7 +13,7 @@ namespace MovieClub.Logic
             this.repo = repo;
         }
 
-        public void AddMovie(MovieCreateDto dto)
+        public void AddMovie(MovieCreateUpdateDto dto)
         {
             Movie m = new Movie(dto.Title, dto.Genre);
             // csak akkor mentsük el, hogyha nincs ilyen című
@@ -42,6 +42,14 @@ namespace MovieClub.Logic
         public void DeleteMovie(string id)
         {
             repo.DeleteById(id);
+        }
+
+        public void UpdateMovie(string id, MovieCreateUpdateDto dto)
+        {
+            var old = repo.FindById(id);
+            old.Title = dto.Title;
+            old.Genre = dto.Genre;
+            repo.Update(old);
         }
     }
 }

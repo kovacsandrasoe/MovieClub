@@ -18,7 +18,7 @@ namespace MovieClub.Endpoint.Controllers
         }
 
         [HttpPost]
-        public void AddMovie(MovieCreateDto dto)
+        public void AddMovie(MovieCreateUpdateDto dto)
         {
             logic.AddMovie(dto);
         }
@@ -33,6 +33,12 @@ namespace MovieClub.Endpoint.Controllers
         public void DeleteMovie(string id)
         {
             logic.DeleteMovie(id);
+        }
+
+        [HttpPut("{id}")]
+        public void UpdateMovie(string id, [FromBody] MovieCreateUpdateDto dto)
+        {
+            logic.UpdateMovie(id, dto);
         }
     }
 }
