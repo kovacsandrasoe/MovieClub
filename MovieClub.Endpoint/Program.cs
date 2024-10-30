@@ -14,6 +14,7 @@ namespace MovieClub.Endpoint
             // Add services to the container.
 
             builder.Services.AddTransient(typeof(Repository<>));
+            builder.Services.AddTransient<DtoProvider>();
             builder.Services.AddTransient<MovieLogic>();
 
             builder.Services.AddDbContext<MovieClubContext>(options =>

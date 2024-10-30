@@ -7,15 +7,18 @@ namespace MovieClub.Logic
     public class MovieLogic
     {
         Repository<Movie> repo;
+        DtoProvider dtoProvider;
 
-        public MovieLogic(Repository<Movie> repo)
+        public MovieLogic(Repository<Movie> repo, DtoProvider dtoProvider)
         {
             this.repo = repo;
+            this.dtoProvider = dtoProvider;
         }
 
         public void AddMovie(MovieCreateUpdateDto dto)
         {
-            Movie m = new Movie(dto.Title, dto.Genre);
+            Movie m = dtoProvider.Mapper.Map<Movie>(dto);
+
             // csak akkor mentsük el, hogyha nincs ilyen című
             if (repo.GetAll().FirstOrDefault(x => x.Title == m.Title) == null)
             {
@@ -30,12 +33,7 @@ namespace MovieClub.Logic
         public IEnumerable<MovieShortViewDto> GetAllMovies()
         {
             return repo.GetAll().Select(x => 
-                new MovieShortViewDto()
-                {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Genre = x.Genre
-                }
+                dtoProvider.Mapper.Map<MovieShortViewDto>(x)
             );
         }
 
@@ -47,21 +45,14 @@ namespace MovieClub.Logic
         public void UpdateMovie(string id, MovieCreateUpdateDto dto)
         {
             var old = repo.FindById(id);
-            old.Title = dto.Title;
-            old.Genre = dto.Genre;
+            dtoProvider.Mapper.Map(dto, old);
             repo.Update(old);
         }
 
         public MovieViewDto GetMovie(string id)
         {
             var model = repo.FindById(id);
-            return new MovieViewDto()
-            {
-                Id = model.Id,
-                Title = model.Title,
-                Genre = model.Genre,
-                Ratings = model.Ratings
-            };
+            return dtoProvider.Mapper.Map<MovieViewDto>(model);
         }
     }
 }
