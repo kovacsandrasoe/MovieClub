@@ -22,6 +22,7 @@ namespace MovieClub.Logic.Helpers
                 cfg.CreateMap<Movie, MovieViewDto>();
                 cfg.CreateMap<MovieCreateUpdateDto, Movie>();
                 cfg.CreateMap<RatingCreateDto, Rating>();
+                cfg.CreateMap<Rating, RatingViewDto>();
             });
 
             Mapper = new Mapper(config);
