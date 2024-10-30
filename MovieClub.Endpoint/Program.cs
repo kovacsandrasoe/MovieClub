@@ -1,7 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using MovieClub.Data;
 using MovieClub.Entities;
-using MovieClub.Logic;
+using MovieClub.Logic.Helpers;
+using MovieClub.Logic.Logic;
 
 namespace MovieClub.Endpoint
 {

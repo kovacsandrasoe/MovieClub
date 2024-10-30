@@ -2,7 +2,7 @@
 using MovieClub.Data;
 using MovieClub.Entities;
 using MovieClub.Entities.Dtos.Movie;
-using MovieClub.Logic;
+using MovieClub.Logic.Logic;
 
 namespace MovieClub.Endpoint.Controllers
 {

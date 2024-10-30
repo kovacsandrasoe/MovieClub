@@ -1,8 +1,9 @@
 ﻿using MovieClub.Data;
 using MovieClub.Entities;
 using MovieClub.Entities.Dtos.Movie;
+using MovieClub.Logic.Helpers;
 
-namespace MovieClub.Logic
+namespace MovieClub.Logic.Logic
 {
     public class MovieLogic
     {
@@ -32,7 +33,7 @@ namespace MovieClub.Logic
 
         public IEnumerable<MovieShortViewDto> GetAllMovies()
         {
-            return repo.GetAll().Select(x => 
+            return repo.GetAll().Select(x =>
                 dtoProvider.Mapper.Map<MovieShortViewDto>(x)
             );
         }
