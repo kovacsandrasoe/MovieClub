@@ -1,5 +1,6 @@
 ﻿using MovieClub.Data;
 using MovieClub.Entities;
+using MovieClub.Entities.Dtos.Movie;
 
 namespace MovieClub.Logic
 {
@@ -12,9 +13,10 @@ namespace MovieClub.Logic
             this.repo = repo;
         }
 
-        public void AddMovie()
+        public void AddMovie(MovieCreateDto dto)
         {
-            
+            Movie m = new Movie(dto.Title, dto.Genre);
+            repo.Create(m);
         }
     }
 }
