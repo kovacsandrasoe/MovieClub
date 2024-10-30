@@ -38,5 +38,10 @@ namespace MovieClub.Logic
                 }
             );
         }
+
+        public void DeleteMovie(string id)
+        {
+            repo.DeleteById(id);
+        }
     }
 }

@@ -28,5 +28,11 @@ namespace MovieClub.Endpoint.Controllers
         {
             return logic.GetAllMovies();
         }
+
+        [HttpDelete("{id}")]
+        public void DeleteMovie(string id)
+        {
+            logic.DeleteMovie(id);
+        }
     }
 }
