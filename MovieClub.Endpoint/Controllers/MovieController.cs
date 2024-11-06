@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieClub.Data;
 using MovieClub.Entities;
 using MovieClub.Entities.Dtos.Movie;
@@ -19,6 +20,7 @@ namespace MovieClub.Endpoint.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public void AddMovie(MovieCreateUpdateDto dto)
         {
             logic.AddMovie(dto);
@@ -31,12 +33,14 @@ namespace MovieClub.Endpoint.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public void DeleteMovie(string id)
         {
             logic.DeleteMovie(id);
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public void UpdateMovie(string id, [FromBody] MovieCreateUpdateDto dto)
         {
             logic.UpdateMovie(id, dto);

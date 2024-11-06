@@ -1,11 +1,14 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MovieClub.Data;
 using MovieClub.Endpoint.Helpers;
 using MovieClub.Entities;
 using MovieClub.Logic.Helpers;
 using MovieClub.Logic.Logic;
+using System.Text;
 
 namespace MovieClub.Endpoint
 {
@@ -35,6 +38,25 @@ namespace MovieClub.Endpoint
 )
                 .AddEntityFrameworkStores<MovieClubContext>()
                 .AddDefaultTokenProviders();
+
+            builder.Services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = true;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = "movieclub.com",
+                    ValidIssuer = "movieclub.com",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("NagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcs"))
+                };
+            }); ;
 
             builder.Services.AddDbContext<MovieClubContext>(options =>
             {
@@ -67,6 +89,7 @@ namespace MovieClub.Endpoint
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
