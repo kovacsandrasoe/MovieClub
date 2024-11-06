@@ -67,7 +67,7 @@ namespace MovieClub.Endpoint.Controllers
         private JwtSecurityToken GenerateAccessToken(IEnumerable<Claim>? claims, int expiryInMinutes)
         {
             var signinKey = new SymmetricSecurityKey(
-                  Encoding.UTF8.GetBytes("Nagyonhosszútitkosítókulcs"));
+                  Encoding.UTF8.GetBytes("NagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcsNagyonhosszútitkosítókulcs"));
 
             return new JwtSecurityToken(
                   issuer: "movieclub.com",
