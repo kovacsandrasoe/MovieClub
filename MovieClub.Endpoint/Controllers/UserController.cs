@@ -27,7 +27,7 @@ namespace MovieClub.Endpoint.Controllers
         }
 
         [HttpPost("login")]
-        public async Task Login(UserInputDto dto)
+        public async Task<IActionResult> Login(UserInputDto dto)
         {
             var user = await userManager.FindByNameAsync(dto.UserName);
             if (user == null)
@@ -48,7 +48,14 @@ namespace MovieClub.Endpoint.Controllers
                     claim.Add(new Claim(ClaimTypes.Name, user.UserName!));
                     claim.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
 
-                    var token = GenerateAccessToken(claim);
+                    int expiryInMinutes = 24 * 60;
+                    var token = GenerateAccessToken(claim, expiryInMinutes);
+
+                    return Ok(new LoginResultDto()
+                    {
+                        Token = new JwtSecurityTokenHandler().WriteToken(token),
+                        Expiration = DateTime.Now.AddMinutes(expiryInMinutes)
+                    });
 
                 }
             }
@@ -57,12 +64,10 @@ namespace MovieClub.Endpoint.Controllers
 
         }
 
-        private JwtSecurityToken GenerateAccessToken(IEnumerable<Claim>? claims)
+        private JwtSecurityToken GenerateAccessToken(IEnumerable<Claim>? claims, int expiryInMinutes)
         {
             var signinKey = new SymmetricSecurityKey(
                   Encoding.UTF8.GetBytes("Nagyonhosszútitkosítókulcs"));
-
-            int expiryInMinutes = 24*60;
 
             return new JwtSecurityToken(
                   issuer: "movieclub.com",
