@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieClub.Data;
@@ -20,6 +21,20 @@ namespace MovieClub.Endpoint
             builder.Services.AddTransient<DtoProvider>();
             builder.Services.AddTransient<MovieLogic>();
             builder.Services.AddTransient<RatingLogic>();
+            //builder.Services.AddTransient<UserManager<IdentityUser>>();
+
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+                    option =>
+                    {
+                        option.Password.RequireDigit = false;
+                        option.Password.RequiredLength = 6;
+                        option.Password.RequireNonAlphanumeric = false;
+                        option.Password.RequireUppercase = false;
+                        option.Password.RequireLowercase = false;
+                    }
+)
+                .AddEntityFrameworkStores<MovieClubContext>()
+                .AddDefaultTokenProviders();
 
             builder.Services.AddDbContext<MovieClubContext>(options =>
             {
