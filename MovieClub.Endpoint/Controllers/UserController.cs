@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MovieClub.Entities.Dtos.User;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace MovieClub.Endpoint.Controllers
 {
@@ -39,12 +43,34 @@ namespace MovieClub.Endpoint.Controllers
                 }
                 else
                 {
-                    
+                    //todo: generate token
+                    var claim = new List<Claim>();
+                    claim.Add(new Claim(ClaimTypes.Name, user.UserName!));
+                    claim.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+
+                    var token = GenerateAccessToken(claim);
+
                 }
             }
             
 
 
+        }
+
+        private JwtSecurityToken GenerateAccessToken(IEnumerable<Claim>? claims)
+        {
+            var signinKey = new SymmetricSecurityKey(
+                  Encoding.UTF8.GetBytes("Nagyonhosszútitkosítókulcs"));
+
+            int expiryInMinutes = 24*60;
+
+            return new JwtSecurityToken(
+                  issuer: "movieclub.com",
+                  audience: "movieclub.com",
+                  claims: claims?.ToArray(),
+                  expires: DateTime.Now.AddMinutes(expiryInMinutes),
+                  signingCredentials: new SigningCredentials(signinKey, SecurityAlgorithms.HmacSha256)
+                );
         }
     }
 }
