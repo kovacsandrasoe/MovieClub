@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MovieClub.Entities;
 
 namespace MovieClub.Data
 {
-    public class MovieClubContext : DbContext
+    public class MovieClubContext : IdentityDbContext
     {
         public DbSet<Movie> Movies { get; set; }
 
