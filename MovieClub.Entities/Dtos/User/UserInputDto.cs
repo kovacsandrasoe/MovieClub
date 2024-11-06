@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MovieClub.Entities.Dtos.User
 {
-    public class UserCreateDto
+    public class UserInputDto
     {
         [MinLength(6)]
         public required string UserName { get; set; } = "";
