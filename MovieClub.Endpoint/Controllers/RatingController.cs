@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MovieClub.Entities.Dtos.Rating;
 using MovieClub.Logic.Logic;
@@ -11,16 +12,20 @@ namespace MovieClub.Endpoint.Controllers
     public class RatingController : ControllerBase
     {
         RatingLogic logic;
+        UserManager<IdentityUser> userManager;
 
-        public RatingController(RatingLogic logic)
+        public RatingController(RatingLogic logic, UserManager<IdentityUser> userManager)
         {
             this.logic = logic;
+            this.userManager = userManager;
         }
 
         [HttpPost]
-        public void AddRating(RatingCreateDto dto)
+        public async Task AddRating(RatingCreateDto dto)
         {
-            logic.AddRating(dto);
+            var user = await userManager.GetUserAsync(User);
+
+            logic.AddRating(dto, user.Id);
         }
     }
 }

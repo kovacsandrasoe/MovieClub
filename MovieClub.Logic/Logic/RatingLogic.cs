@@ -21,9 +21,10 @@ namespace MovieClub.Logic.Logic
             this.dtoProvider = dtoProvider;
         }
 
-        public void AddRating(RatingCreateDto dto)
+        public void AddRating(RatingCreateDto dto, string userId)
         {
             var model = dtoProvider.Mapper.Map<Rating>(dto);
+            model.UserId = userId;
             repo.Create(model);
         }
     }
