@@ -11,5 +11,6 @@ namespace MovieClub.Entities.Dtos.Rating
     {
         public string Text { get; set; } = "";
         public int Rate { get; set; }
+        public string UserFullName { get; set; } = "";
     }
 }

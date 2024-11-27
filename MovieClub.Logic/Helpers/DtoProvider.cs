@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using MovieClub.Entities;
 using MovieClub.Entities.Dtos.Movie;
 using MovieClub.Entities.Dtos.Rating;
@@ -12,10 +13,13 @@ namespace MovieClub.Logic.Helpers
 {
     public class DtoProvider
     {
+        UserManager<IdentityUser> userManager;
+
         public Mapper Mapper { get; }
 
-        public DtoProvider()
+        public DtoProvider(UserManager<IdentityUser> userManager)
         {
+            this.userManager = userManager;
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Movie, MovieShortViewDto>()
@@ -28,7 +32,11 @@ namespace MovieClub.Logic.Helpers
                 cfg.CreateMap<Movie, MovieViewDto>();
                 cfg.CreateMap<MovieCreateUpdateDto, Movie>();
                 cfg.CreateMap<RatingCreateDto, Rating>();
-                cfg.CreateMap<Rating, RatingViewDto>();
+                cfg.CreateMap<Rating, RatingViewDto>()
+                .AfterMap((src, dest) =>
+                {
+                    dest.UserFullName = userManager.Users.First(u => u.Id == src.UserId).UserName!;    
+                });
             });
 
             Mapper = new Mapper(config);
