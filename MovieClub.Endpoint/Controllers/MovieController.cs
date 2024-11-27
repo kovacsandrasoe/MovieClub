@@ -33,7 +33,7 @@ namespace MovieClub.Endpoint.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public void DeleteMovie(string id)
         {
             logic.DeleteMovie(id);
