@@ -36,7 +36,8 @@ namespace MovieClub.Endpoint
                         option.Password.RequireUppercase = false;
                         option.Password.RequireLowercase = false;
                     }
-)
+                )
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<MovieClubContext>()
                 .AddDefaultTokenProviders();
 
