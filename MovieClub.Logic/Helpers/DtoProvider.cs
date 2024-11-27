@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using MovieClub.Data;
 using MovieClub.Entities;
 using MovieClub.Entities.Dtos.Movie;
 using MovieClub.Entities.Dtos.Rating;
@@ -14,11 +15,11 @@ namespace MovieClub.Logic.Helpers
 {
     public class DtoProvider
     {
-        UserManager<IdentityUser> userManager;
+        UserManager<AppUser> userManager;
 
         public Mapper Mapper { get; }
 
-        public DtoProvider(UserManager<IdentityUser> userManager)
+        public DtoProvider(UserManager<AppUser> userManager)
         {
             this.userManager = userManager;
             var config = new MapperConfiguration(cfg =>
@@ -29,7 +30,7 @@ namespace MovieClub.Logic.Helpers
                     dest.AverageRating = src.Ratings?.Count > 0 ? src.Ratings.Average(r => r.Rate) : 0;
                 });
 
-                cfg.CreateMap<IdentityUser, UserViewDto>()
+                cfg.CreateMap<AppUser, UserViewDto>()
                 .AfterMap((src, dest) =>
                 {
                     dest.IsAdmin = userManager.IsInRoleAsync(src, "Admin").Result;
@@ -42,7 +43,8 @@ namespace MovieClub.Logic.Helpers
                 cfg.CreateMap<Rating, RatingViewDto>()
                 .AfterMap((src, dest) =>
                 {
-                    dest.UserFullName = userManager.Users.First(u => u.Id == src.UserId).UserName!;    
+                    var user = userManager.Users.First(u => u.Id == src.UserId);
+                    dest.UserFullName = user.LastName! + " " + user.FirstName;    
                 });
             });
 

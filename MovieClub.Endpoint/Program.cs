@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using MovieClub.Data;
 using MovieClub.Endpoint.Helpers;
 using MovieClub.Entities;
+using MovieClub.Logic;
 using MovieClub.Logic.Helpers;
 using MovieClub.Logic.Logic;
 using System.Text;
@@ -27,7 +28,7 @@ namespace MovieClub.Endpoint
             builder.Services.AddTransient<RatingLogic>();
             //builder.Services.AddTransient<UserManager<IdentityUser>>();
 
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+            builder.Services.AddIdentity<AppUser, IdentityRole>(
                     option =>
                     {
                         option.Password.RequireDigit = false;

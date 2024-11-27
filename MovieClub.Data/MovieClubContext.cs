@@ -10,6 +10,8 @@ namespace MovieClub.Data
 
         public DbSet<Rating> Ratings { get; set; }
 
+        public DbSet<AppUser> AppUsers { get; set; }
+
         public MovieClubContext(DbContextOptions<MovieClubContext> ctx)
             :base(ctx)
         {

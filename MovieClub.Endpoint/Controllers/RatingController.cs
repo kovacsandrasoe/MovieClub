@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MovieClub.Data;
 using MovieClub.Entities.Dtos.Rating;
 using MovieClub.Logic.Logic;
 
@@ -12,9 +13,9 @@ namespace MovieClub.Endpoint.Controllers
     public class RatingController : ControllerBase
     {
         RatingLogic logic;
-        UserManager<IdentityUser> userManager;
+        UserManager<AppUser> userManager;
 
-        public RatingController(RatingLogic logic, UserManager<IdentityUser> userManager)
+        public RatingController(RatingLogic logic, UserManager<AppUser> userManager)
         {
             this.logic = logic;
             this.userManager = userManager;
