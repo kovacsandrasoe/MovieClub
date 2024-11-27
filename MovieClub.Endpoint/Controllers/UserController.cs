@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using MovieClub.Entities.Dtos.User;
+using MovieClub.Logic.Helpers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -15,11 +16,13 @@ namespace MovieClub.Endpoint.Controllers
     {
         UserManager<IdentityUser> userManager;
         RoleManager<IdentityRole> roleManager;
+        DtoProvider dtoProvider;
 
-        public UserController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UserController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, DtoProvider dtoProvider)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.dtoProvider = dtoProvider;
         }
 
         [HttpGet("grantadmin/{userid}")]
@@ -40,6 +43,15 @@ namespace MovieClub.Endpoint.Controllers
             if (user == null)
                 throw new ArgumentException("User not found");
             await userManager.RemoveFromRoleAsync(user, "Admin");
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+        public IEnumerable<UserViewDto> GetUsers()
+        {
+            return userManager.Users.Select(t =>
+                dtoProvider.Mapper.Map<UserViewDto>(t)
+            );
         }
 
         [HttpPost("register")]

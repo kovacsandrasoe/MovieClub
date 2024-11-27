@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using MovieClub.Entities;
 using MovieClub.Entities.Dtos.Movie;
 using MovieClub.Entities.Dtos.Rating;
+using MovieClub.Entities.Dtos.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,12 @@ namespace MovieClub.Logic.Helpers
                 .AfterMap((src, dest) =>
                 {
                     dest.AverageRating = src.Ratings?.Count > 0 ? src.Ratings.Average(r => r.Rate) : 0;
+                });
+
+                cfg.CreateMap<IdentityUser, UserViewDto>()
+                .AfterMap((src, dest) =>
+                {
+                    dest.IsAdmin = userManager.IsInRoleAsync(src, "Admin").Result;
                 });
 
 
