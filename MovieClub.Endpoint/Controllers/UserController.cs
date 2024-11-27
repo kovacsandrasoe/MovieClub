@@ -26,7 +26,7 @@ namespace MovieClub.Endpoint.Controllers
         {
             var user = new IdentityUser(dto.UserName);
             await userManager.CreateAsync(user, dto.Password);
-            if (userManager.Users.Count() == 2)
+            if (userManager.Users.Count() == 1)
             {
                 //adminná előléptetés
                 await roleManager.CreateAsync(new IdentityRole("Admin"));
